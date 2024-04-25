@@ -13,11 +13,6 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {
-     
-        '/setting': (context) => SettingPage(),
-        '/longlist': (context) => LonglistPage(),
-      },
       navigatorKey: GlobalKey<NavigatorState>(),
     );
   }
@@ -51,55 +46,55 @@ class Home extends StatelessWidget {
         },
         
       ),
-    drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("Malia Aiswarya"),
-              accountEmail: Text("maliaaiswarya@gmail.com"),
-              currentAccountPicture: GestureDetector(
-                onTap: () {},
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage('https://i.pinimg.com/564x/c5/ec/52/c5ec52d3afb7835851bf583481a731ba.jpg'),
-                ),
-              ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/bg_profile.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/setting');
-              },
-              child: ListTile(
-                title: Text('Setting'),
-                trailing: Icon(Icons.settings),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide.none,
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/longlist');
-              },
-              child: ListTile(
-                title: Text('longlist'),
-                trailing: Icon(Icons.list),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide.none,
-              ),
-            ),
-          ],
-        ),
-      ),
+    // drawer: Drawer(
+    //     child: ListView(
+    //       padding: EdgeInsets.zero,
+    //       children: <Widget>[
+    //         UserAccountsDrawerHeader(
+    //           accountName: Text("Malia Aiswarya"),
+    //           accountEmail: Text("maliaaiswarya@gmail.com"),
+    //           currentAccountPicture: GestureDetector(
+    //             onTap: () {},
+    //             child: CircleAvatar(
+    //               backgroundImage: NetworkImage('https://i.pinimg.com/564x/c5/ec/52/c5ec52d3afb7835851bf583481a731ba.jpg'),
+    //             ),
+    //           ),
+    //           decoration: BoxDecoration(
+    //             image: DecorationImage(
+    //               image: AssetImage('images/bg_profile.jpg'),
+    //               fit: BoxFit.cover,
+    //             ),
+    //           ),
+    //         ),
+    //         OutlinedButton(
+    //           onPressed: () {
+    //             Navigator.pop(context);
+    //             Navigator.of(context).pushNamed('/setting');
+    //           },
+    //           child: ListTile(
+    //             title: Text('Setting'),
+    //             trailing: Icon(Icons.settings),
+    //           ),
+    //           style: OutlinedButton.styleFrom(
+    //             side: BorderSide.none,
+    //           ),
+    //         ),
+    //         OutlinedButton(
+    //           onPressed: () {
+    //             Navigator.pop(context);
+    //             Navigator.of(context).pushNamed('/longlist');
+    //           },
+    //           child: ListTile(
+    //             title: Text('longlist'),
+    //             trailing: Icon(Icons.list),
+    //           ),
+    //           style: OutlinedButton.styleFrom(
+    //             side: BorderSide.none,
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+      //),
     );
   }
 }
@@ -186,32 +181,3 @@ class ResepCard extends StatelessWidget {
   }
 }
 
-class SettingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Setting'),
-      ),
-      body: Center(
-        child: Text('Setting Page'),
-      ),
-    );
-  }
-}
-
-
-
-class LonglistPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('history'),
-      ),
-      body: Center(
-        child: Text('Longlist Page'),
-      ),
-    );
-  }
-}

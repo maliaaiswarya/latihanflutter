@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:helloworld1/model/post.dart';
-import 'package:helloworld1/service/post_api.dart';
-
+import 'package:helloworld1/model/petani.dart';
+import 'package:helloworld1/service/apiStatic.dart';
+import 'package:helloworld1/page/petaniPage.dart';
+void main() {
+  runApp(const LongList());
+}
 
 class LongList extends StatefulWidget {
   const LongList({super.key});
@@ -11,80 +14,61 @@ class LongList extends StatefulWidget {
 }
 
 class _LongListState extends State<LongList> {
-  // final List<String> _items = ['pending', 'paid', 'succes'];
-  final List<Map> photos = [
-  {
-    "albumId": 1,
-    "id": 1,
-    "title": "ayam betutu khas bali",
-    "url": "https://via.placeholder.com/600/92c952",
-    "thumbnailUrl": "https://via.placeholder.com/150/92c952"
-  },
-  {
-    "albumId": 1,
-    "id": 2,
-    "title": "ayam betutu khas bali",
-    "url": "https://via.placeholder.com/600/771796",
-    "thumbnailUrl": "https://via.placeholder.com/150/771796"
-  },
-  {
-    "albumId": 1,
-    "id": 3,
-    "title": "officia porro iure quia iusto qui ipsa ut modi",
-    "url": "https://via.placeholder.com/600/24f355",
-    "thumbnailUrl": "https://via.placeholder.com/150/24f355"
-}
-];
-  
-  Future<List<Post>> postsFuture = PostApi.getPosts();
+  late Future<List<Petani>> futurePetani;
+
+  final ApiService apiStatic = ApiService();
   
   @override
-Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        // FutureBuilder
-        child: FutureBuilder<List<Post>>(
-          future: postsFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              // until data is fetched, show loader
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasData) {
-              // once data is fetched, display it on screen (call buildPosts())
-              final posts = snapshot.data!;
-              return buildPosts(posts);
-            } else {
-              // if no data, show simple Text
-              return const Text("No data available");
-            }
-          },
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    futurePetani = 
+    apiStatic.fetchPetani();
   }
 
-  // function to display fetched data on screen
-  Widget buildPosts(List<Post> posts) {
-    // ListView Builder to show data in a list
-    return ListView.builder(
-      itemCount: posts.length,
-      itemBuilder: (context, index) {
-        final post = posts[index];
-        return Container(
-          color: Colors.grey.shade300,
-          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          height: 100,
-          width: double.maxFinite,
-          child: Row(
-            children: [
-              Expanded(flex: 1, child: Image.network(post.url!)),
-              SizedBox(width: 10),
-              Expanded(flex: 3, child: Text(post.title!)),
-            ],
+  void _navigatetoPetaniPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => PetaniPage(futurePetani: futurePetani)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Fetch Data Example',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Fetch Data Example'),
+        ),
+        body: Center(
+          child: FutureBuilder<List<Petani>>(
+            future: futurePetani,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // Display a loading indicator while waiting for the future
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                // Display an error message if there's an error
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                // Display the list of Petani if data is available
+                final List<Petani> petaniList = snapshot.data!;
+                return ListView.builder(
+                  itemCount: petaniList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // Display each Petani's name
+                    return Text('${petaniList[index].nama}');
+                  },
+                );
+              } else {
+                // Default case: Display a message when there's no data
+                return const Text('No data available');
+              }
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
