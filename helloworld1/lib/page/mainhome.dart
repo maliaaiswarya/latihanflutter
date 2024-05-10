@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   late Future<List<Petani>> futurePetani; // Perbaikan tipe data Future
 
-  final ApiService apiStatic = ApiService();
+  final ApiStatic apiStatic = ApiStatic();
 
   @override
   void initState() {

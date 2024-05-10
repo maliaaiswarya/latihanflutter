@@ -16,7 +16,7 @@ class LongList extends StatefulWidget {
 class _LongListState extends State<LongList> {
   late Future<List<Petani>> futurePetani;
 
-  final ApiService apiStatic = ApiService();
+  final ApiStatic apiStatic = ApiStatic();
   
   @override
   void initState() {

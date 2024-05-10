@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld1/model/petani.dart';
-import 'package:helloworld1/page/detail_page_petani.dart';
+import 'package:helloworld1/page/detail_petani_page.dart';
 
 class PetaniPage extends StatefulWidget {
   const PetaniPage({
